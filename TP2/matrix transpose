@@ -1,0 +1,18 @@
+//We try to transpose a matrix by map/reduce
+
+//K is the row number, V is the line, ctx is the context
+//For map phase, the key is the column number, the value is the row number and the word
+Map(K,V,ctx) {   
+  counter = 0
+  arrs = V.split(',')
+  for each str in arrs {
+    ctx.writer(counter,<K,str>)
+    counter+=str.length()+1
+  }
+}
+
+Reduce(K,V[],ctx) {
+	for each x in V[] {
+		ctx.write(K,x.value)  //Now K is changed to the row number
+	}
+}
